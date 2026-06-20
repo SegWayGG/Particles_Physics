@@ -16,8 +16,8 @@ class RandomParticle extends Particle {
     */
     checkBounds() {
         if(this.y > height + this.radius || this.x > width + this.radius || this.x < 0 - this.radius) {
-            this.x = this.ix; // 'x' vuelve a la posición original.
-            this.y = this.iy; // 'y' vuelve a la posición original.
+            this.x = mouseX; // 'x' es la posición en x del mouse.
+            this.y = mouseY; // 'y' es la posición en y del mouse.
             this.vx = random(this.ivx, 0);
             this.vy = random(this.ivy, 0);
         }
