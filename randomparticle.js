@@ -3,23 +3,34 @@ class RandomParticle extends Particle {
     /**
      * El constructor no es necesario si no se le agregan propiedades nuevas al momento de nacer.
      * En este caso le pasamos al contructor con 'super' los mismo parámetros que tiene el padre.
-     * Le agregamos 'color' para guardar un color random en la generación de cada partícula.
+     * Crea 'color' para guardar un color random en la generación de cada partícula.
+     * Crea 'vida' para la vida inicial de cada partícula.
     */
     constructor(x, y, vx, vy, size) {
     super(x, y, vx, vy, size);
-    this.color = color(random(255), random(255), random(255));
+    this.color = color(255, random(100, 255), random(0, 80));
+    this.vida = random(50, 255);
+    }
+    /**
+     * Sobreescribre el de la superclase (padre).
+     * Le resta 5 a 'vida'.
+    */
+    update() {
+        super.update();
+        this.vida -=5;
     }
     
     /**
-     * Este método sobreescribe el de la superclase (padre) y cambia lo que hace. 
-     * Ahora comprueba si sale del camvas también por los costados.
+     * Este método sobreescribe el de la superclase (padre). 
+     * Comprueba si sale del camvas también por los costados.
     */
     checkBounds() {
-        if(this.y > height + this.radius || this.x > width + this.radius || this.x < 0 - this.radius) {
+        if(this.vida <= 0) {
             this.x = mouseX; // 'x' es la posición en x del mouse.
             this.y = mouseY; // 'y' es la posición en y del mouse.
             this.vx = random(this.ivx, 0);
             this.vy = random(this.ivy, 0);
+            this.vida = 255;
         }
     }
 
@@ -28,6 +39,7 @@ class RandomParticle extends Particle {
      * Le agrega un relleno del color random.
     */
     draw() { 
+    this.color.setAlpha(this.vida);
     fill(this.color);
     circle(this.x, this.y, this.size);
     }
@@ -55,9 +67,9 @@ class Fuente {
           iniciales aleatorias y los almacena en el array this.particles.
         */
         for(let i = 0; i < num; i++) {
-            let vx = random(-2.0, 2.0);
-            let vy = random(-10.0, 0);
-            let p = new RandomParticle(this.x, this.y, vx, vy, 10); // Crea una partícula
+            let vx = random(-3.0, 3.0);
+            let vy = random(-3.0, 3.0);
+            let p = new RandomParticle(this.x, this.y, vx, vy, random(1, 3.5)); // Crea una partícula
             this.particlesArr.push(p); // Mete la partícula creada en el array
         }
     }

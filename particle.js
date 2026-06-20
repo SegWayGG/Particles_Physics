@@ -1,7 +1,7 @@
 
 class Particle {
     // Valor constante que se le suma a vy en cada frame.
-    gravity = 0.2;
+    gravity = 0.02;
 
     /**
      * @param {number} x - Posición en x.
